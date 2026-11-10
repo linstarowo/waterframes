@@ -168,8 +168,7 @@ public class Display {
         if (tile.data.tickMax == -1) {
             tile.data.tick = 0;
             // tile.data.tick should not be synced
-            // tile.syncTime(true, tile.data.tick, durationInTicks());
-            this.tile.syncTime(true, -1, this.durationInTicks());
+            tile.syncTime(true, tile.data.tick, durationInTicks());
         }
         this.synced = true;
     }

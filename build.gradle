@@ -7,12 +7,9 @@ plugins {
     id "me.modmuss50.mod-publish-plugin" version "0.8.3"
 }
 
-def MT_TOKEN = System.getenv("MODRINTH_TOKEN")
-def CF_TOKEN = System.getenv("CURSEFORGE_TOKEN")
-
 base {
     archivesName = modid
-    version = "$modloader-mc$mcversion-v$modversion"
+    version = "$modloader-mc$mcversion-v$modversion-fork"
 }
 
 java.toolchain {
@@ -92,43 +89,4 @@ jar {
     }
     exclude('org/valkyrienskies/**')
     finalizedBy('reobfJar')
-}
-
-publishMods {
-    file = jar.archiveFile
-    displayName = "WF-$modloader/mc$mcversion/v$modversion"
-    type = STABLE
-    changelog = getChangelogText()
-
-    maxRetries = 2
-    dryRun = false
-
-    modLoaders.add(modloader.toLowerCase())
-
-    curseforge {
-        accessToken = CF_TOKEN
-        projectId = curseforgeid
-        minecraftVersions.addAll(mcversion)
-        javaVersions.addAll(JavaVersion.VERSION_17)
-        clientRequired = true
-        serverRequired = true
-        projectSlug = modid
-        requires("creativecore", "watermedia", "watervision")
-    }
-
-    modrinth {
-        accessToken = MT_TOKEN
-        projectId = modrinthid
-        minecraftVersions.addAll(mcversion)
-        requires("creativecore", "watermedia", "watervision")
-    }
-}
-
-def getChangelogText() {
-    def result = ""
-    for (String line: file('CHANGELOG.md').readLines('UTF-8')) {
-        if (line.isEmpty()) return result
-        result += line + '\n'
-    }
-    return result
 }

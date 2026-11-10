@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.watermedia.api.image.ImageRenderer;
 
 @OnlyIn(Dist.CLIENT)
@@ -17,7 +18,7 @@ public class TextureWrapper extends AbstractTexture {
         return this.id;
     }
 
-    @Override public void load(ResourceManager manager) { /* NO OP */ }
+    @Override public void load(@NotNull ResourceManager manager) { /* NO OP */ }
     @Override public void releaseId() { /* NO OP */ }
     @Override public void close() { /* NO OP */}
 

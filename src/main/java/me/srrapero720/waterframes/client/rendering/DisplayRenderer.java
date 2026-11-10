@@ -52,7 +52,7 @@ public class DisplayRenderer implements BlockEntityRenderer<DisplayTile> {
     }
 
     @Override
-    public void render(DisplayTile tile, float partialTicks, PoseStack pose, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(DisplayTile tile, float partialTicks, @NotNull PoseStack pose, @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         var display = tile.activeDisplay();
         if (display == null || !DisplaysConfig.keepsRendering()) return;
         display.preRender();

@@ -175,7 +175,9 @@ public class Display {
     }
 
     public void forceSeek() {
-        this.mediaPlayer.seekTo(MathAPI.tickToMs(tile.data.tick));
+        if (this.mediaPlayer != null) {
+            this.mediaPlayer.seekTo(MathAPI.tickToMs(tile.data.tick));
+        }
     }
 
     public void tick() {

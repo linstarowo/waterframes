@@ -2,7 +2,6 @@ package me.srrapero720.waterframes.common.network.packets;
 
 import me.srrapero720.waterframes.common.block.entity.DisplayTile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 
 import static me.srrapero720.waterframes.WaterFrames.LOGGER;
 

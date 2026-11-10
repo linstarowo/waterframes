@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import team.creative.creativecore.common.gui.style.Icon;
 
 public class IconStyles {
-    public static final ResourceLocation location = new ResourceLocation(WaterFrames.ID, "textures/screen_atlas.png");
+    public static final ResourceLocation location = ResourceLocation.tryBuild(WaterFrames.ID, "textures/screen_atlas.png");
 
     // VOLUME COLUM (chunk 0)
     public static final Icon VOLUME = create(0, 0);

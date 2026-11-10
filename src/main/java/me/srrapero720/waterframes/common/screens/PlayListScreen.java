@@ -18,7 +18,6 @@ import team.creative.creativecore.common.gui.GuiParent;
 import team.creative.creativecore.common.gui.controls.parent.GuiScrollY;
 import team.creative.creativecore.common.gui.controls.simple.GuiButtonIcon;
 import team.creative.creativecore.common.gui.controls.simple.GuiCheckButtonIcon;
-import team.creative.creativecore.common.gui.controls.simple.GuiStateButtonIcon;
 import team.creative.creativecore.common.gui.flow.GuiFlow;
 import team.creative.creativecore.common.gui.style.GuiStyle;
 import team.creative.creativecore.common.gui.style.display.StyleDisplay;

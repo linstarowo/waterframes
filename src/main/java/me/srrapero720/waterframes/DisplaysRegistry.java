@@ -1,17 +1,12 @@
 package me.srrapero720.waterframes;
 
-import me.srrapero720.waterframes.client.rendering.TextureWrapper;
 import me.srrapero720.waterframes.client.rendering.DisplayRenderer;
+import me.srrapero720.waterframes.client.rendering.TextureWrapper;
 import me.srrapero720.waterframes.common.block.*;
 import me.srrapero720.waterframes.common.block.entity.*;
 import me.srrapero720.waterframes.common.commands.WaterFramesCommand;
 import me.srrapero720.waterframes.common.item.RemoteControl;
 import me.srrapero720.waterframes.common.network.packets.*;
-import net.minecraftforge.server.permission.PermissionAPI;
-import net.minecraftforge.server.permission.events.PermissionGatherEvent;
-import net.minecraftforge.server.permission.nodes.PermissionNode;
-import net.minecraftforge.server.permission.nodes.PermissionTypes;
-import org.watermedia.api.image.ImageAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -23,11 +18,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -37,12 +31,17 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.server.permission.PermissionAPI;
+import net.minecraftforge.server.permission.events.PermissionGatherEvent;
+import net.minecraftforge.server.permission.nodes.PermissionNode;
+import net.minecraftforge.server.permission.nodes.PermissionTypes;
+import org.watermedia.api.image.ImageAPI;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import static me.srrapero720.waterframes.common.network.DisplayNetwork.*;
 import static me.srrapero720.waterframes.WaterFrames.*;
+import static me.srrapero720.waterframes.common.network.DisplayNetwork.NET;
 import static org.watermedia.WaterMedia.IT;
 
 @Mod.EventBusSubscriber(modid = ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -109,6 +108,7 @@ public class DisplaysRegistry {
     }
 
     private static RegistryObject<BlockEntityType<DisplayTile>> tile(String name, BlockEntityType.BlockEntitySupplier<DisplayTile> creator, Supplier<DisplayBlock> block) {
+        //noinspection DataFlowIssue
         return TILES.register(name, () -> BlockEntityType.Builder.of(creator, block.get()).build(null));
     }
 
@@ -215,11 +215,11 @@ public class DisplaysRegistry {
         }
     }
 
-    public static class UnsupportedModException extends UnsupportedOperationException {
-        private static final String MSG_REASON = "§fMod §6'%s' §fis not compatible with §e'%s' §fbecause §c%s §fplease remove it";
-
-        public UnsupportedModException(String modid, String reason) {
-            super(String.format(MSG_REASON, modid, NAME, reason));
-        }
-    }
+//    public static class UnsupportedModException extends UnsupportedOperationException {
+//        private static final String MSG_REASON = "§fMod §6'%s' §fis not compatible with §e'%s' §fbecause §c%s §fplease remove it";
+//
+//        public UnsupportedModException(String modid, String reason) {
+//            super(String.format(MSG_REASON, modid, NAME, reason));
+//        }
+//    }
 }

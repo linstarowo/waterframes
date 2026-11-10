@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.server.permission.nodes.PermissionNode;
+import org.jetbrains.annotations.NotNull;
 import team.creative.creativecore.common.util.math.base.Facing;
 import team.creative.creativecore.common.util.math.box.AlignedBox;
 
@@ -32,7 +33,7 @@ public class ProjectorBlock extends DisplayBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Direction direction = state.getValue(getFacing());
         Facing facing = Facing.get(direction);
         var box = new AlignedBox();
@@ -64,7 +65,7 @@ public class ProjectorBlock extends DisplayBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
         return new ProjectorTile(pPos, pState);
     }
 }

@@ -1,11 +1,11 @@
 package me.srrapero720.waterframes.client.rendering;
 
 import me.srrapero720.waterframes.WaterFrames;
-import org.watermedia.api.image.ImageRenderer;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.watermedia.api.image.ImageRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class TextureWrapper extends AbstractTexture {

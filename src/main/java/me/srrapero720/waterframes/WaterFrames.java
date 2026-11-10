@@ -85,14 +85,14 @@ public class WaterFrames {
         return uris;
     }
 
-    public static boolean isInstalled(String... mods) {
-        for (String id: mods) {
-            if (FMLLoader.getLoadingModList().getModFileById(id) != null) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean isInstalled(String... mods) {
+//        for (String id: mods) {
+//            if (FMLLoader.getLoadingModList().getModFileById(id) != null) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public static double getDistance(DisplayTile tile, Position playerPos) {
         return getDistance(tile.level, tile.getBlockPos(), playerPos);

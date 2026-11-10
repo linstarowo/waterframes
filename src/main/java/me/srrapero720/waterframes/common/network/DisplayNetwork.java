@@ -2,7 +2,8 @@ package me.srrapero720.waterframes.common.network;
 
 import me.srrapero720.waterframes.WaterFrames;
 import me.srrapero720.waterframes.common.block.entity.DisplayTile;
-import me.srrapero720.waterframes.common.network.packets.*;
+import me.srrapero720.waterframes.common.network.packets.DisplayControlPacket;
+import me.srrapero720.waterframes.common.network.packets.DisplayDataPacket;
 import team.creative.creativecore.common.network.CreativeNetwork;
 
 import static me.srrapero720.waterframes.WaterFrames.LOGGER;

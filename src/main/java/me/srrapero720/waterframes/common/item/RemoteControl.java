@@ -28,6 +28,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.creative.creativecore.common.gui.GuiLayer;
 import team.creative.creativecore.common.gui.creator.GuiCreator;
@@ -46,7 +47,7 @@ public class RemoteControl extends Item implements ItemGuiCreator {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
         if (hand == InteractionHand.OFF_HAND) {
             return InteractionResultHolder.fail(stack);
@@ -78,7 +79,7 @@ public class RemoteControl extends Item implements ItemGuiCreator {
         }
 
         var blockPos = new BlockPos(pos[0], pos[1], pos[2]);
-        var dimension = new ResourceLocation(dim);
+        @SuppressWarnings("removal") var dimension = new ResourceLocation(dim);
 
         if (level.getBlockEntity(blockPos) instanceof DisplayTile tile) {
             double distance = WaterFrames.getDistance(tile, player.position());
@@ -98,7 +99,7 @@ public class RemoteControl extends Item implements ItemGuiCreator {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         var pos = context.getClickedPos();
         var level = context.getLevel();
         var player = context.getPlayer();
@@ -186,7 +187,7 @@ public class RemoteControl extends Item implements ItemGuiCreator {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag isAdvanced) {
         Options opts = Minecraft.getInstance().options;
         pTooltipComponents.add(Component.translatable("waterframes.remote.description.1", opts.keyShift.getKey().getDisplayName(), opts.keyUse.getKey().getDisplayName()));
     }
@@ -198,7 +199,7 @@ public class RemoteControl extends Item implements ItemGuiCreator {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+    public boolean canAttackBlock(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer) {
         return false;
     }
 

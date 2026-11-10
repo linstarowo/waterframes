@@ -10,10 +10,6 @@ import me.srrapero720.waterframes.common.block.data.types.PositionHorizontal;
 import me.srrapero720.waterframes.common.block.data.types.PositionVertical;
 import me.srrapero720.waterframes.common.network.DisplayNetwork;
 import me.srrapero720.waterframes.common.network.packets.*;
-import net.minecraft.world.level.chunk.LevelChunk;
-import org.watermedia.api.image.ImageAPI;
-import org.watermedia.api.image.ImageCache;
-import org.watermedia.api.math.MathAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,15 +21,22 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
+import org.watermedia.api.image.ImageAPI;
+import org.watermedia.api.image.ImageCache;
+import org.watermedia.api.math.MathAPI;
 import team.creative.creativecore.common.util.math.base.Axis;
 import team.creative.creativecore.common.util.math.base.Facing;
 import team.creative.creativecore.common.util.math.box.AlignedBox;
+
+import java.util.Objects;
 
 import static me.srrapero720.waterframes.WaterFrames.LOGGER;
 
@@ -160,13 +163,13 @@ public class DisplayTile extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(CompoundTag nbt) {
+    public void saveAdditional(@NotNull CompoundTag nbt) {
         this.data.save(nbt, this);
         super.saveAdditional(nbt);
     }
 
     @Override
-    public void load(CompoundTag nbt) {
+    public void load(@NotNull CompoundTag nbt) {
         this.data.load(nbt, this);
         super.load(nbt);
     }
@@ -210,7 +213,10 @@ public class DisplayTile extends BlockEntity {
     }
 
     public LevelChunk getChunk() {
-        return this.getLevel().getChunkAt(this.getBlockPos());
+        if (this.getLevel() != null) {
+            return this.getLevel().getChunkAt(this.getBlockPos());
+        }
+        return null;
     }
 
     public int getLightLevel() {
@@ -222,7 +228,7 @@ public class DisplayTile extends BlockEntity {
     }
 
     private int getLightLevel$internal() {
-        return !this.data.hasUri() ? 0 : (int) (((float) this.data.brightness / 255f) * level.getMaxLightLevel());
+        return !this.data.hasUri() ? 0 : (int) (((float) this.data.brightness / 255f) * Objects.requireNonNull(level).getMaxLightLevel());
     }
 
     private int getAnalogOutput$internal() {
@@ -299,6 +305,7 @@ public class DisplayTile extends BlockEntity {
     }
 
     public void tick(BlockState state) {
+        if (this.level == null) return;
         if (this.data.tickMax == -1 || this.data.tick < 0) this.data.tick = 0;
 
         if (!this.data.paused && this.data.active) {
@@ -379,7 +386,7 @@ public class DisplayTile extends BlockEntity {
     }
 
     public void setVisibility(boolean visible) {
-        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(DisplayBlock.VISIBLE, visible), DisplayBlock.UPDATE_CLIENTS);
+        Objects.requireNonNull(this.level).setBlock(this.getBlockPos(), this.getBlockState().setValue(DisplayBlock.VISIBLE, visible), DisplayBlock.UPDATE_CLIENTS);
     }
 
     public DisplayBlock getDisplayBlock() {
@@ -397,7 +404,7 @@ public class DisplayTile extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
         return this.saveWithFullMetadata();
     }
 

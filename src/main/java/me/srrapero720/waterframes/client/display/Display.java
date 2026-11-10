@@ -1,12 +1,11 @@
 package me.srrapero720.waterframes.client.display;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import me.srrapero720.waterframes.*;
+import me.srrapero720.waterframes.DisplaysConfig;
+import me.srrapero720.waterframes.DisplaysRegistry;
+import me.srrapero720.waterframes.WaterFrames;
 import me.srrapero720.waterframes.client.rendering.TextureWrapper;
 import me.srrapero720.waterframes.common.block.entity.DisplayTile;
-import org.watermedia.api.image.ImageCache;
-import org.watermedia.api.math.MathAPI;
-import org.watermedia.api.player.videolan.VideoPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -14,8 +13,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.watermedia.api.image.ImageCache;
+import org.watermedia.api.math.MathAPI;
+import org.watermedia.api.player.videolan.VideoPlayer;
 import org.watermedia.videolan4j.player.base.State;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
@@ -295,7 +298,7 @@ public class Display {
         double distance = WaterFrames.getDistance(
                 tile.level,
                 tile.getBlockPos().relative(tile.getDirection(), (int) tile.data.audioOffset),
-                Minecraft.getInstance().player.getPosition(WaterFrames.deltaFrames())
+                Objects.requireNonNull(Minecraft.getInstance().player).getPosition(WaterFrames.deltaFrames())
         );
 
         if (min > max) {

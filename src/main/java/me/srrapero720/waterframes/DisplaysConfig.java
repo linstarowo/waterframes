@@ -442,7 +442,7 @@ public class DisplaysConfig {
         } else {
             GameType gameType = (player instanceof ServerPlayer serverPlayer)
                     ? serverPlayer.gameMode.getGameModeForPlayer()
-                    : Minecraft.getInstance().gameMode.getPlayerMode();
+                    : Objects.requireNonNull(Minecraft.getInstance().gameMode).getPlayerMode();
 
             if (isAdmin(player)) return true;
             if (!useInSurv() && gameType.equals(GameType.SURVIVAL)) return false;

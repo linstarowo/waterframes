@@ -26,16 +26,25 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.material.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.server.permission.nodes.PermissionNode;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import team.creative.creativecore.common.gui.GuiLayer;
 import team.creative.creativecore.common.gui.creator.BlockGuiCreator;
 import team.creative.creativecore.common.gui.creator.GuiCreator;
+
+import java.util.Objects;
 
 @SuppressWarnings("deprecation")
 @MethodsReturnNonnullByDefault
@@ -69,19 +78,19 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
     }
 
     @Override
-    public GuiLayer create(CompoundTag tag, Level level, BlockPos blockPos, BlockState blockState, Player player) {
+    public @Nullable GuiLayer create(CompoundTag tag, Level level, BlockPos blockPos, BlockState blockState, Player player) {
         return level.getBlockEntity(blockPos) instanceof DisplayTile tile ? new DisplayScreen(tile) : null;
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
-    @Override public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    @Override public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() instanceof RemoteControl control) {
             boolean matchDim = control.getDimension(stack.getOrCreateTag()).equals(level.dimension().location().toString());
@@ -94,7 +103,7 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
                     tile.setPause(true, !tile.data.paused);
                 }
                 Vec3 vec = Vec3.atCenterOf(pos);
-                var opts = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(ChatFormatting.AQUA.getColor()).toVector3f()), 1.3f);
+                var opts = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(Objects.requireNonNull(ChatFormatting.AQUA.getColor())).toVector3f()), 1.3f);
 
                 int i = 0;
                 do {
@@ -144,11 +153,11 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
         return state.hasProperty(VISIBLE) ? (state.getValue(VISIBLE) ? RenderShape.MODEL : RenderShape.INVISIBLE) : RenderShape.MODEL;
     }
 
-    @Override public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return this.getShape(state, level, pos, null);
+    @Override public VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return this.getShape(state, level, pos, CollisionContext.empty());
     }
 
-    @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
+    @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
         return (l, pos, state, be) -> {
             if (be instanceof DisplayTile tile) {
                 tile.tick(state);
@@ -156,7 +165,7 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
         };
     }
 
-    @Override public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPos, boolean isMoving) {
+    @Override public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos neighborPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, block, neighborPos, isMoving);
         if (!DisplaysConfig.useRedstone() || !(level.getBlockEntity(pos) instanceof DisplayTile tile)) return;
         boolean signal = level.hasNeighborSignal(pos);
@@ -167,11 +176,11 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
         }
     }
 
-    @Override public boolean hasAnalogOutputSignal(BlockState state) {
+    @Override public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
 
-    @Override public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+    @Override public int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
         return level.getBlockEntity(pos) instanceof DisplayTile tile ? tile.getAnalogOutput() : 0;
     }
 
@@ -179,12 +188,12 @@ public abstract class DisplayBlock extends BaseEntityBlock implements BlockGuiCr
         return level.getBlockEntity(pos) instanceof DisplayTile tile ? tile.getLightLevel() : 0;
     }
 
-    @Override public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+    @Override public float getShadeBrightness(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return 0f;
     }
 
     @Override
-    public boolean isCollisionShapeFullBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public boolean isCollisionShapeFullBlock(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos) {
         return false;
     }
 

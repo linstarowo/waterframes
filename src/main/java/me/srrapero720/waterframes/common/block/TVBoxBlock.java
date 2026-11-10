@@ -33,12 +33,12 @@ public class TVBoxBlock extends DisplayBlock {
     }
 
     @Override
-    public DirectionProperty getFacing() {
+    public @NotNull DirectionProperty getFacing() {
         return BlockStateProperties.HORIZONTAL_FACING;
     }
 
     @Override
-    public PermissionNode<Boolean> getPermissionNode() {
+    public @NotNull PermissionNode<Boolean> getPermissionNode() {
         return DisplaysRegistry.PERM_DISPLAYS_INTERACT_TV;
     }
 
@@ -75,13 +75,14 @@ public class TVBoxBlock extends DisplayBlock {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState st = super.getStateForPlacement(context);
         return st.setValue(this.getFacing(), st.getValue(this.getFacing()).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    @SuppressWarnings("deprecation")
+    public @NotNull VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return Shapes.block();
     }
 
@@ -96,13 +97,13 @@ public class TVBoxBlock extends DisplayBlock {
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
+    public @NotNull PushReaction getPistonPushReaction(BlockState pState) {
         return PushReaction.NORMAL;
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new TVBoxTile(pos, state);
     }
 }

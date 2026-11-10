@@ -6,6 +6,8 @@ import me.srrapero720.waterframes.common.network.packets.DisplayControlPacket;
 import me.srrapero720.waterframes.common.network.packets.DisplayDataPacket;
 import team.creative.creativecore.common.network.CreativeNetwork;
 
+import java.util.Objects;
+
 import static me.srrapero720.waterframes.WaterFrames.LOGGER;
 
 public class DisplayNetwork {
@@ -24,6 +26,6 @@ public class DisplayNetwork {
             packet.bounce = false;
             packet.execute(tile, false);
         }
-        NET.sendToClient(packet, tile.getLevel().getChunkAt(packet.pos));
+        NET.sendToClient(packet, Objects.requireNonNull(tile.getLevel()).getChunkAt(packet.pos));
     }
 }

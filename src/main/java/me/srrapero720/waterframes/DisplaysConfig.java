@@ -495,9 +495,9 @@ public class DisplaysConfig {
         return name.equals("SrRaapero720") || name.equals("SrRapero720");
     }
 
-    public static boolean isDevMode() {
-        return !FMLLoader.isProduction() || forceDevMode.get();
-    }
+//    public static boolean isDevMode() {
+//        return !FMLLoader.isProduction() || forceDevMode.get();
+//    }
 
     public static void setPlaylistMode(boolean v) {
         DisplaysConfig.useExperimentalPlaylistMode.set(v);

@@ -322,6 +322,6 @@ public class Display {
     }
 
     public enum Mode {
-        VIDEO, PICTURE, AUDIO;
+        VIDEO, PICTURE, AUDIO
     }
 }

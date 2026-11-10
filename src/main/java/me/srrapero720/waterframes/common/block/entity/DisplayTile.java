@@ -212,13 +212,6 @@ public class DisplayTile extends BlockEntity {
         super.onChunkUnloaded();
     }
 
-    public LevelChunk getChunk() {
-        if (this.getLevel() != null) {
-            return this.getLevel().getChunkAt(this.getBlockPos());
-        }
-        return null;
-    }
-
     public int getLightLevel() {
         return lightLevel;
     }

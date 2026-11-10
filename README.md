@@ -1,3 +1,7 @@
+## This is a fork based on waterframes 2.1.22 1.20.1 with some issues fixed
+
+---
+
 [![CurseForge downloads](https://cf.way2muchnoise.eu/waterframes.svg?badge_style=for_the_badge)](https://www.curseforge.com/minecraft/mc-mods/waterframes)
 [![CurseForge](https://img.shields.io/curseforge/v/834607?style=for-the-badge&label=curseforge&labelColor=%232d2d2d&color=%23e04e14&link=https%3A%2F%2Fwww.curseforge.com%2Fminecraft%2Fmc-mods%2Fwaterframes%2Ffiles)](https://www.curseforge.com/minecraft/mc-mods/waterframes/files)
 [![Minecraft versions supported](https://cf.way2muchnoise.eu/versions/Supports_waterframes_all.svg?badge_style=for_the_badge)](https://www.curseforge.com/minecraft/mc-mods/waterframes/files)<br>

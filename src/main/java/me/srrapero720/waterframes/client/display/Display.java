@@ -165,8 +165,12 @@ public class Display {
     }
 
     public void syncDuration() {
-        if (tile.data.tickMax == -1) tile.data.tick = 0;
-        tile.syncTime(true, tile.data.tick, durationInTicks());
+        if (tile.data.tickMax == -1) {
+            tile.data.tick = 0;
+            // tile.data.tick should not be synced
+            // tile.syncTime(true, tile.data.tick, durationInTicks());
+            this.tile.syncTime(true, -1, this.durationInTicks());
+        }
         this.synced = true;
     }
 

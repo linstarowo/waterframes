@@ -35,7 +35,10 @@ public class TimePacket extends DisplayControlPacket {
             tile.data.tickMax = -1;
             tile.data.tick = 0;
         } else {
-            tile.data.tick = this.tick;
+            if (this.tick != -1) {
+                tile.data.tick = this.tick;
+            }
+
             if (tile.data.tickMax == -1) {
                 tile.data.tick = 0;
             } else if (tile.data.tickMax > 0 && tile.data.tickMax != this.tickMax) { // SEND A MISMATCH WHEN TIME IS NOT ZERO

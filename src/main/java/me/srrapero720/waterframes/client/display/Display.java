@@ -222,7 +222,8 @@ public class Display {
     public boolean isBuffering() {
         return switch (displayMode) {
             case PICTURE -> false;
-            case VIDEO, AUDIO -> this.mediaPlayer.isBuffering() || this.mediaPlayer.isLoading() || this.mediaPlayer.raw().mediaPlayer().status().state() == State.NOTHING_SPECIAL;
+            case VIDEO, AUDIO -> this.mediaPlayer.isBuffering() || this.mediaPlayer.isLoading()
+                    || (this.mediaPlayer.raw() != null && this.mediaPlayer.raw().mediaPlayer().status().state() == State.NOTHING_SPECIAL);
         };
     }
 
@@ -278,7 +279,6 @@ public class Display {
     public void release() {
         if (this.isReleased()) return;
         this.released = true;
-        imageCache.deuse();
         switch (displayMode) {
             case PICTURE -> {}
             case VIDEO, AUDIO -> {
@@ -287,6 +287,8 @@ public class Display {
                 DisplayList.remove(this);
             }
         }
+        // THE TILE OWNS THE IMAGECACHE REFERENCE, RELEASE IT THERE
+        this.tile.releaseImageCache(this.imageCache);
     }
 
     public int rangedVol(int volume, int min, int max) { // Min and Max distances

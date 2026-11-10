@@ -91,18 +91,26 @@ public class DisplayTile extends BlockEntity {
         }
 
         if (this.isReleased) {
-            this.imageCache = null;
-            return null;
-        }
-
-        if (imageCache == null && !this.data.hasUri()) {
             this.cleanDisplay();
+            this.releaseImageCache();
             return null;
         }
 
-        if (this.imageCache == null || (this.data.hasUri() && !this.imageCache.uri.equals(this.data.getUri()))) {
+        if (!this.data.hasUri()) {
+            this.cleanDisplay();
+            this.releaseImageCache();
+            return null;
+        }
+
+        // THE IMAGECACHE REFERENCE BELONGS TO THE TILE, SO IT MUST BE RELEASED
+        // BEFORE BEING REPLACED. OTHERWISE ITS USAGE COUNTER WOULD BECOME WRONG
+        // AND THE SHARED CACHE COULD BE FREED WHILE DISPLAYS STILL USE IT,
+        // FORCING EVERY DISPLAY SHARING THAT URL TO RELOAD (LOADING SPINNER).
+        if (this.imageCache == null || !this.imageCache.uri.equals(this.data.getUri())) {
+            this.cleanDisplay();
+            this.releaseImageCache();
             this.imageCache = ImageAPI.getCache(this.data.getUri(), Minecraft.getInstance());
-            this.cleanDisplay();
+            if (this.imageCache == null) return null;
         }
 
         switch (imageCache.getStatus()) {
@@ -113,7 +121,7 @@ public class DisplayTile extends BlockEntity {
 
             case WAITING -> {
                 this.cleanDisplay();
-                this.imageCache.load();
+                if (this.imageCache != null) this.imageCache.load();
                 return display;
             }
 
@@ -128,6 +136,27 @@ public class DisplayTile extends BlockEntity {
                 return null;
             }
         }
+    }
+
+    /**
+     * Releases the reference to the current {@link ImageCache} held by this tile.
+     * A cache in {@link ImageCache.Status#FORGOTTEN} state was already released by
+     * WATERMeDIA, so it must not be de-used again.
+     */
+    @OnlyIn(Dist.CLIENT)
+    public void releaseImageCache(ImageCache expected) {
+        if (expected != null && expected == this.imageCache) {
+            final ImageCache cache = this.imageCache;
+            this.imageCache = null;
+            if (cache.getStatus() != ImageCache.Status.FORGOTTEN) cache.deuse();
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void releaseImageCache() {
+        final ImageCache cache = this.imageCache;
+        this.imageCache = null;
+        if (cache != null && cache.getStatus() != ImageCache.Status.FORGOTTEN) cache.deuse();
     }
 
     @Override
@@ -153,6 +182,7 @@ public class DisplayTile extends BlockEntity {
     @OnlyIn(Dist.CLIENT)
     private void release() {
         this.cleanDisplay();
+        this.releaseImageCache();
         this.isReleased = true;
     }
 

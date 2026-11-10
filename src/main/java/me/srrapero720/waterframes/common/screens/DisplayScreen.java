@@ -49,6 +49,9 @@ public class DisplayScreen extends GuiLayer {
 
     // ICONS
     private final GuiIcon rot_i = (GuiIcon) new GuiIcon("r_icon", IconStyles.ROTATION).setSquared(true).setTooltip("waterframes.gui.icon.rotation");
+    private final GuiIcon rot_x = (GuiIcon) new GuiIcon("rx_icon", IconStyles.ROTATION_X).setSquared(true).setTooltip("waterframes.gui.icon.rotation_x");
+    private final GuiIcon rot_y = (GuiIcon) new GuiIcon("ry_icon", IconStyles.ROTATION_Y).setSquared(true).setTooltip("waterframes.gui.icon.rotation_y");
+    private final GuiIcon rot_z = (GuiIcon) new GuiIcon("rz_icon", IconStyles.ROTATION_Z).setSquared(true).setTooltip("waterframes.gui.icon.rotation_z");
     private final GuiIcon vis_i = (GuiIcon) new GuiIcon("t_icon", IconStyles.TRANSPARENCY).setSquared(true).setTooltip("waterframes.gui.icon.alpha");
     private final GuiIcon bright_i = (GuiIcon) new GuiIcon("b_icon", IconStyles.BRIGHTNESS).setSquared(true).setTooltip("waterframes.gui.icon.brightness");
     private final GuiIcon render_i = (GuiIcon) new GuiIcon("r_icon", IconStyles.RENDER_DISTANCE).setSquared(true).setTooltip("waterframes.gui.icon.render_distance");
@@ -65,6 +68,10 @@ public class DisplayScreen extends GuiLayer {
     public final GuiCounterDecimal heightField;
 
     public final GuiSlider rotation;
+    public final GuiSlider rotationY;
+    public final GuiSlider rotationX;
+    public final GuiSlider rotationZ;
+
     public final GuiSteppedSlider alpha;
     public final GuiSteppedSlider brightness;
     public final GuiSteppedSlider render_distance;
@@ -127,6 +134,10 @@ public class DisplayScreen extends GuiLayer {
         this.flip_y.setTranslate("waterframes.gui.flip_y");
 
         this.rotation = new GuiSlider(DisplayData.ROTATION, tile.data.rotation, 0, 360, DoubleValueParser.ANGLE);
+        this.rotationY = new GuiSlider(DisplayData.ROTATION, tile.data.rotationY, 0, 360, DoubleValueParser.ANGLE);
+        this.rotationX = new GuiSlider(DisplayData.ROTATION, tile.data.rotationX, 0, 360, DoubleValueParser.ANGLE);
+        this.rotationZ = new GuiSlider(DisplayData.ROTATION, tile.data.rotationZ, 0, 360, DoubleValueParser.ANGLE);
+
         this.alpha = new GuiSteppedSlider(DisplayData.ALPHA, tile.data.alpha, 0, 255, (v, max) -> (Math.round(((v != 0 && max != 0 ? (float) v / (float) max : 0) * 100))) + "%");
         this.brightness = new GuiSteppedSlider(DisplayData.BRIGHTNESS, tile.data.brightness, 0, 255, (v, max) -> Math.round(((v != 0 && max != 0 ? (float) v / (float) max : 0) * 100)) + "%");
         this.render_distance = new GuiSteppedSlider(DisplayData.RENDER_DISTANCE, tile.data.renderDistance, 4, DisplaysConfig.maxRenDis(), IntValueParser.BLOCKS);
@@ -243,6 +254,21 @@ public class DisplayScreen extends GuiLayer {
                 .addLeft(tile.caps.resizes(), () -> new GuiParent(GuiFlow.STACK_X)
                         .add(rot_i)
                         .add(rotation.setDim(-1, 12).setExpandableX())
+                        .setVAlign(VAlign.CENTER)
+                )
+                .addLeft(tile.caps.resizes(), () -> new GuiParent(GuiFlow.STACK_X)
+                        .add(rot_x)
+                        .add(rotationX.setDim(-1, 12).setExpandableX())
+                        .setVAlign(VAlign.CENTER)
+                )
+                .addLeft(tile.caps.resizes(), () -> new GuiParent(GuiFlow.STACK_X)
+                        .add(rot_y)
+                        .add(rotationY.setDim(-1, 12).setExpandableX())
+                        .setVAlign(VAlign.CENTER)
+                )
+                .addLeft(tile.caps.resizes(), () -> new GuiParent(GuiFlow.STACK_X)
+                        .add(rot_z)
+                        .add(rotationZ.setDim(-1, 12).setExpandableX())
                         .setVAlign(VAlign.CENTER)
                 )
                 .addLeft(new GuiParent(GuiFlow.STACK_X)

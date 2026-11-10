@@ -96,6 +96,9 @@
 
     "waterframes.gui.icon.volume": "Гучність",
     "waterframes.gui.icon.rotation": "Поворот зображення",
+    "waterframes.gui.icon.rotation_x": "Поворот зображення (вісь X)",
+    "waterframes.gui.icon.rotation_y": "Поворот зображення (вісь Y)",
+    "waterframes.gui.icon.rotation_z": "Поворот зображення (вісь Z)",
     "waterframes.gui.icon.alpha": "8-бітовий рівень зображення каналу",
     "waterframes.gui.icon.brightness": "Рівень яскравості зображення",
     "waterframes.gui.icon.render_distance": "Максимальна відстань відтворення зображення",

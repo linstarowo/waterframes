@@ -96,6 +96,9 @@
 
     "waterframes.gui.icon.volume": "Громкость",
     "waterframes.gui.icon.rotation": "Поворот изображения",
+    "waterframes.gui.icon.rotation_x": "Поворот изображения (ось X)",
+    "waterframes.gui.icon.rotation_y": "Поворот изображения (ось Y)",
+    "waterframes.gui.icon.rotation_z": "Поворот изображения (ось Z)",
     "waterframes.gui.icon.alpha": "8-битовый уровень изображения канала",
     "waterframes.gui.icon.brightness": "Уровень яркости изображения",
     "waterframes.gui.icon.render_distance": "Максимальное расстояние отрисовки изображения",

@@ -20,6 +20,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 import team.creative.creativecore.common.util.math.base.Axis;
 import team.creative.creativecore.common.util.math.base.Facing;
 import team.creative.creativecore.common.util.math.box.AlignedBox;
@@ -76,6 +77,10 @@ public class DisplayRenderer implements BlockEntityRenderer<DisplayTile> {
         pose.pushPose();
         pose.translate(0.5, 0.5, 0.5);
         pose.mulPose(facing.rotation().rotation((float) Math.toRadians(-tile.data.rotation)));
+
+        pose.mulPose(rotation(Axis.X, (float) Math.toRadians(tile.data.rotationX)));
+        pose.mulPose(rotation(Axis.Y, (float) Math.toRadians(tile.data.rotationY)));
+        pose.mulPose(rotation(Axis.Z, (float) Math.toRadians(tile.data.rotationZ)));
         pose.translate(-0.5, -0.5, -0.5);
 
         // TWEAK FOR "EXTRA-RESIZING"
@@ -103,6 +108,11 @@ public class DisplayRenderer implements BlockEntityRenderer<DisplayTile> {
         }
 
         pose.popPose();
+    }
+
+    private static Quaternionf rotation(Axis axis, float radians) {
+        Vec3i normal = axis.facing(true).normal;
+        return new Quaternionf().rotationAxis(radians, normal.getX(), normal.getY(), normal.getZ());
     }
 
     public void vertex(PoseStack pose, MultiBufferSource source, AlignedBox box, BoxFace boxface, Facing facing, int packedLight, int packedOverlay,

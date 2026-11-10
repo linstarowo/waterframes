@@ -96,6 +96,9 @@
 
     "waterframes.gui.icon.volume": "音量",
     "waterframes.gui.icon.rotation": "角度",
+    "waterframes.gui.icon.rotation_x": "角度 (X軸)",
+    "waterframes.gui.icon.rotation_y": "角度 (Y軸)",
+    "waterframes.gui.icon.rotation_z": "角度 (Z軸)",
     "waterframes.gui.icon.alpha": "不透過率",
     "waterframes.gui.icon.brightness": "明るさ",
     "waterframes.gui.icon.render_distance": "最大描画距離",

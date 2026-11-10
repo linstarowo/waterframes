@@ -33,6 +33,9 @@ public class DisplayData {
     public static final String FLIP_Y = "flip_y";
 
     public static final String ROTATION = "rotation";
+    public static final String ROTATION_X = "rotation_x";
+    public static final String ROTATION_Y = "rotation_y";
+    public static final String ROTATION_Z = "rotation_z";
     public static final String ALPHA = "alpha";
     public static final String BRIGHTNESS = "brightness";
     public static final String RENDER_DISTANCE = "render_distance";
@@ -70,6 +73,9 @@ public class DisplayData {
     public boolean flipY = false;
 
     public float rotation = 0;
+    public float rotationX = 0;
+    public float rotationY = 0;
+    public float rotationZ = 0;
     public int alpha = 255;
     public int brightness = 255;
     public int renderDistance = DisplaysConfig.maxRenDis(32);
@@ -134,6 +140,9 @@ public class DisplayData {
             nbt.putFloat(MAX_X, max.x);
             nbt.putFloat(MAX_Y, max.y);
             nbt.putFloat(ROTATION, rotation);
+            nbt.putFloat(ROTATION_X, rotationX);
+            nbt.putFloat(ROTATION_Y, rotationY);
+            nbt.putFloat(ROTATION_Z, rotationZ);
         }
         nbt.putInt(RENDER_DISTANCE, renderDistance);
         nbt.putBoolean(FLIP_X, flipX);
@@ -178,6 +187,9 @@ public class DisplayData {
             this.max.x = nbt.getFloat(MAX_X);
             this.max.y = nbt.getFloat(MAX_Y);
             this.rotation = nbt.getFloat(ROTATION);
+            this.rotationX = nbt.getFloat(ROTATION_X);
+            this.rotationY = nbt.getFloat(ROTATION_Y);
+            this.rotationZ = nbt.getFloat(ROTATION_Z);
         }
         this.renderDistance = DisplaysConfig.maxRenDis(nbt.getInt(RENDER_DISTANCE));
         this.flipX = nbt.getBoolean(FLIP_X);
@@ -355,6 +367,9 @@ public class DisplayData {
             nbt.putInt("pos_x",  screen.pos_view.getX().ordinal());
             nbt.putInt("pos_y", screen.pos_view.getY().ordinal());
             nbt.putFloat(ROTATION, (float) screen.rotation.getValue());
+            nbt.putFloat(ROTATION_X, (float) screen.rotationX.getValue());
+            nbt.putFloat(ROTATION_Y, (float) screen.rotationY.getValue());
+            nbt.putFloat(ROTATION_Z, (float) screen.rotationZ.getValue());
         }
 
         nbt.putBoolean(FLIP_X, screen.flip_x.value);
@@ -416,6 +431,9 @@ public class DisplayData {
                 tile.data.setWidth(PositionHorizontal.VALUES[posX], width);
                 tile.data.setHeight(PositionVertical.VALUES[posY], height);
                 tile.data.rotation = nbt.getFloat(ROTATION);
+                tile.data.rotationX = nbt.getFloat(ROTATION_X);
+                tile.data.rotationY = nbt.getFloat(ROTATION_Y);
+                tile.data.rotationZ = nbt.getFloat(ROTATION_Z);
             }
 
             tile.data.flipX = nbt.getBoolean(FLIP_X);

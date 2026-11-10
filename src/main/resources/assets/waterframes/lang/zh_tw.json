@@ -83,6 +83,9 @@
 
   "waterframes.gui.icon.volume": "音量",
   "waterframes.gui.icon.rotation": "圖片旋轉",
+  "waterframes.gui.icon.rotation_x": "圖片旋轉（X 軸）",
+  "waterframes.gui.icon.rotation_y": "圖片旋轉（Y 軸）",
+  "waterframes.gui.icon.rotation_z": "圖片旋轉（Z 軸）",
   "waterframes.gui.icon.alpha": "圖片 Alpha 通道等級",
   "waterframes.gui.icon.brightness": "圖片亮度等級",
   "waterframes.gui.icon.render_distance": "圖片最大繪製距離",

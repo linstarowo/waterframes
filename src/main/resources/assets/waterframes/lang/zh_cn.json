@@ -96,6 +96,9 @@
 
     "waterframes.gui.icon.volume": "音量",
     "waterframes.gui.icon.rotation": "图像旋转",
+    "waterframes.gui.icon.rotation_x": "图像旋转（X 轴）",
+    "waterframes.gui.icon.rotation_y": "图像旋转（Y 轴）",
+    "waterframes.gui.icon.rotation_z": "图像旋转（Z 轴）",
     "waterframes.gui.icon.alpha": "图像 Alpha 通道级别",
     "waterframes.gui.icon.brightness": "图像亮度级别",
     "waterframes.gui.icon.render_distance": "图像最大渲染距离",

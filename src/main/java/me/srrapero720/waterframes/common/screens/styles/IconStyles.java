@@ -85,6 +85,12 @@ public class IconStyles {
     public static final Icon CHANNEL_UP = create(15, 12);
     public static final Icon CHANNEL_DOWN = create(15, 13);
 
+    // XYZ Rotation (chunk 6)
+
+    public static final Icon ROTATION_X = create(6, 0);
+    public static final Icon ROTATION_Y = create(6, 1);
+    public static final Icon ROTATION_Z = create(6, 2);
+
     private static Icon create(int chunkX, int chunkY) {
         return new Icon(location, 16 * chunkX, 16 * chunkY, 16, 16);
     }

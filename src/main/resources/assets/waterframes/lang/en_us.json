@@ -108,6 +108,9 @@
 
     "waterframes.gui.icon.volume": "Volume",
     "waterframes.gui.icon.rotation": "Image rotation",
+    "waterframes.gui.icon.rotation_x": "Image rotation (X axis)",
+    "waterframes.gui.icon.rotation_y": "Image rotation (Y axis)",
+    "waterframes.gui.icon.rotation_z": "Image rotation (Z axis)",
     "waterframes.gui.icon.alpha": "Image Alpha channel level",
     "waterframes.gui.icon.brightness": "Image brightness level",
     "waterframes.gui.icon.render_distance": "Image max rendering distance",
